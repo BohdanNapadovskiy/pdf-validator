@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class GroupSummary {
 
-  private Category category;
+  private Category _Category;
   private Subcategory subcategory;
   private ElementType element; // may be NONE
   private long passed;
@@ -24,7 +24,7 @@ public class GroupSummary {
 
   public GroupSummary(GroupKey k, List<Detail> list) {
     GroupSummary gs = new GroupSummary();
-    gs.category = k.category();
+    gs._Category = k.Category();
     gs.subcategory = k.subcategory();
     gs.element = k.element();
     gs.passed = list.stream().filter(d -> "passed".equalsIgnoreCase(d.getStatus())).count();

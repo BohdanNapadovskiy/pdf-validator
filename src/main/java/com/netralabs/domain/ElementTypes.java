@@ -12,8 +12,8 @@ import java.util.Map;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReportSummary {
-
-  private Map<Category, List<GroupSummary>> groups;
+public class ElementTypes {
+  public List<String> allowed;
+  public Map<String,String> standardTypeToElement;
 
 }

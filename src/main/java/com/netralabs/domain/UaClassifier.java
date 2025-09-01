@@ -1,84 +1,84 @@
 package com.netralabs.domain;
 
-import java.util.List;
-import java.util.regex.Pattern;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.netralabs.mapper.ClauseRule;
+import com.netralabs.mapper.MappingConfig;
 
 public class UaClassifier {
 
-  private static final Pattern P_STRUCT_ROOT = Pattern.compile("StructTreeRoot", Pattern.CASE_INSENSITIVE);
-  private static final Pattern P_ROLEMAP     = Pattern.compile("role ?map|/RoleMap|/S\\b", Pattern.CASE_INSENSITIVE);
-  private static final Pattern P_HEADING     = Pattern.compile("\\bH[1-6]\\b|heading", Pattern.CASE_INSENSITIVE);
-  private static final Pattern P_FIGURE      = Pattern.compile("\\bfigure\\b|/Alt\\b", Pattern.CASE_INSENSITIVE);
-  private static final Pattern P_TABLE       = Pattern.compile("\\btable\\b|\\bTH\\b|\\bTD\\b", Pattern.CASE_INSENSITIVE);
-  private static final Pattern P_NOTE        = Pattern.compile("\\bnote\\b|footnote", Pattern.CASE_INSENSITIVE);
-  private static final Pattern P_LANG        = Pattern.compile("\\b/Lang\\b|document language|xmp:language|dc:language", Pattern.CASE_INSENSITIVE);
-  private static final Pattern P_UNICODE     = Pattern.compile("ToUnicode|Unicode|CIDToGID|glyph", Pattern.CASE_INSENSITIVE);
-  private static final Pattern P_EXTREF      = Pattern.compile("RemoteGoTo|Rendition|F\\s*\\(|external object", Pattern.CASE_INSENSITIVE);
+  public Bucket classifyRule(JsonNode ruleSummary, MappingConfig config) {
+    // --- Safe extraction of fields to avoid NPEs ---
+    String spec = textOrEmpty(ruleSummary.get("specification"));
+    String clause = textOrEmpty(ruleSummary.get("clause"));
+    String description = textOrEmpty(ruleSummary.get("description")).toLowerCase();
+    ArrayNode tags = ruleSummary.hasNonNull("tags") && ruleSummary.get("tags").isArray()
+        ? (ArrayNode) ruleSummary.get("tags") : null;
 
-  public static GroupKey classify(Detail d) {
-    String obj  = safe(d.getObject());
-    String desc = safe(d.getDescription());
-    String test = safe(d.getTest());
-    String all  = (obj + " " + desc + " " + test).toLowerCase();
-    List<String> tags = d.getTags() == null ? List.of() : d.getTags();
+    // 1) Clause rules: match by spec startsWith + longest clausePrefix
+    Bucket bestMatch = null;
+    int longest = -1;
+    if (config.mappings.clauseRules != null) {
+      for (ClauseRule r : config.mappings.clauseRules) {
+        String rSpec = safe(r.spec);
+        String rPrefix = safe(r.clausePrefix);
+        if (!spec.startsWith(rSpec)) continue;
+        if (!clause.startsWith(rPrefix)) continue;
 
-    // --- LOGICAL STRUCTURE: Structure Elements (by element type)
-    if (tags.contains("annotation") || obj.contains("Annot")) {
-      // Widget/Link annotations are “Structure Elements → Annotations”
-      return new GroupKey(Category.LOGICAL_STRUCTURE, Subcategory.STRUCTURE_ELEMENTS, ElementType.ANNOTATIONS);
+        int len = rPrefix.length();
+        if (len > longest) {
+          longest = len;
+          bestMatch = new Bucket(
+              Category.valueOf(safe(r.category)),
+              Subcategory.valueOf(safe(r.subcategory)),
+              r.element != null ? ElementType.valueOf(r.element) : ElementType.NONE,
+              ruleSummary
+          );
+        }
+      }
     }
-    if (P_HEADING.matcher(all).find()) return new GroupKey(Category.LOGICAL_STRUCTURE, Subcategory.STRUCTURE_ELEMENTS, ElementType.HEADINGS);
-    if (P_NOTE.matcher(all).find())    return new GroupKey(Category.LOGICAL_STRUCTURE, Subcategory.STRUCTURE_ELEMENTS, ElementType.NOTES);
-    if (P_FIGURE.matcher(all).find())  return new GroupKey(Category.LOGICAL_STRUCTURE, Subcategory.STRUCTURE_ELEMENTS, ElementType.FIGURES);
-    if (P_TABLE.matcher(all).find())   return new GroupKey(Category.LOGICAL_STRUCTURE, Subcategory.STRUCTURE_ELEMENTS, ElementType.TABLES);
+    if (bestMatch != null) return bestMatch;
 
-    // --- LOGICAL STRUCTURE: Structure Tree / Role Mapping / Alt Descriptions
-    if (tags.contains("structure") || P_STRUCT_ROOT.matcher(all).find() || "8.2.1".equals(d.getClause())) {
-      return new GroupKey(Category.LOGICAL_STRUCTURE, Subcategory.STRUCTURE_TREE, ElementType.NONE);
-    }
-    if (P_ROLEMAP.matcher(all).find()) {
-      return new GroupKey(Category.LOGICAL_STRUCTURE, Subcategory.ROLE_MAPPING, ElementType.NONE);
-    }
-    // If the rule is clearly about alternative text and NOT specifically an annotation,
-    // put it under Alternative Descriptions. (Widget alt-text stays under Annotations)
-    if (tags.contains("alt-text") && !obj.contains("Annot")) {
-      return new GroupKey(Category.LOGICAL_STRUCTURE, Subcategory.ALTERNATIVE_DESCRIPTIONS, ElementType.NONE);
-    }
-
-    // --- BASIC REQUIREMENTS
-    if (tags.contains("font") || obj.equals("PDFont")) {
-      return new GroupKey(Category.BASIC_REQUIREMENTS, Subcategory.FONTS, ElementType.NONE);
-    }
-    if (tags.contains("artifact")) {
-      // Generic artifact/real-content rules
-      return new GroupKey(Category.BASIC_REQUIREMENTS, Subcategory.CONTENT, ElementType.NONE);
-    }
-    if (P_UNICODE.matcher(all).find()) {
-      return new GroupKey(Category.BASIC_REQUIREMENTS, Subcategory.CONTENT, ElementType.NONE); // “Mapping of character to Unicode”
-    }
-    if (P_EXTREF.matcher(all).find()) {
-      return new GroupKey(Category.BASIC_REQUIREMENTS, Subcategory.CONTENT, ElementType.NONE); // “Referenced external objects”
-    }
-    if (P_LANG.matcher(all).find()) {
-      return new GroupKey(Category.BASIC_REQUIREMENTS, Subcategory.NATURAL_LANGUAGE, ElementType.NONE);
-    }
-    if (obj.contains("EmbeddedFile") || all.contains("/af") || all.contains("afrelationship")) {
-      return new GroupKey(Category.BASIC_REQUIREMENTS, Subcategory.EMBEDDED_FILES, ElementType.NONE);
+    // 2) Tag hints: first tag that has a mapping wins
+    if (tags != null && config.mappings.tagHints != null) {
+      for (JsonNode tag : tags) {
+        String t = textOrEmpty(tag);
+        Bucket mapped = config.mappings.tagHints.get(t);
+        if (mapped != null) return mapped;
+      }
     }
 
-    // Metadata + syntax-y checks → Pdf Syntax (your list has no “Metadata” bucket)
-    if ((d.getTags() != null && d.getTags().contains("metadata")) || obj.toLowerCase().contains("pdfuaidentification")) {
-      return new GroupKey(Category.BASIC_REQUIREMENTS, Subcategory.PDF_SYNTAX, ElementType.NONE);
+    // 3) Keyword fallbacks: containsAny on description
+    if (config.mappings.keywordFallbacks != null) {
+      for (KeywordFallback fb : config.mappings.keywordFallbacks) {
+        if (fb == null || fb.containsAny == null) continue;
+        for (String kw : fb.containsAny) {
+          if (kw != null && !kw.isEmpty() && description.contains(kw.toLowerCase())) {
+            return new Bucket(
+                Category.valueOf(safe(fb.category)),
+                Subcategory.valueOf(safe(fb.subcategory)),
+                ElementType.NONE,
+                ruleSummary
+            );
+          }
+        }
+      }
     }
 
-    // Fallbacks: clauses in 8.x are usually structural; else assume Pdf Syntax
-    if (d.getClause() != null && d.getClause().startsWith("8.")) {
-      return new GroupKey(Category.LOGICAL_STRUCTURE, Subcategory.STRUCTURE_TREE, ElementType.NONE);
-    }
-    return new GroupKey(Category.BASIC_REQUIREMENTS, Subcategory.PDF_SYNTAX, ElementType.NONE);
+    // 4) Global fallback
+    if (config.mappings.globalFallback != null) return config.mappings.globalFallback;
+
+    // Last resort hard default if config omitted globalFallback
+    return new Bucket(Category.BASIC_REQUIREMENTS, Subcategory.PDF_SYNTAX, ElementType.NONE, ruleSummary);
   }
 
-  private static String safe(String s) { return s == null ? "" : s; }
+  private static String textOrEmpty(JsonNode n) {
+    return (n == null || n.isNull()) ? "" : n.asText("");
+  }
 
+  private static String safe(String s) {
+    return s == null ? "" : s;
+  }
 
 }

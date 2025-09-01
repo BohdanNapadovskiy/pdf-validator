@@ -1,0 +1,118 @@
+{
+  "version": "1.0",
+  "priority": [
+    "clauseRules",
+    "tagHints",
+    "keywordFallbacks",
+    "globalFallback"
+  ],
+
+  "mappings": {
+    "clauseRules": [
+      { "spec": "ISO 14289-2", "clausePrefix": "5",      "category": "METADATA_AND_SETTINGS", "subcategory": "PDFUA_IDENTIFICATION" },
+      { "spec": "ISO 14289-2", "clausePrefix": "6.2",    "category": "BASIC_REQUIREMENTS",    "subcategory": "NATURAL_LANGUAGE" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.1",    "category": "METADATA_AND_SETTINGS", "subcategory": "LANGUAGE" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.1",  "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_TREE" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2",    "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_TREE" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.3",    "category": "LOGICAL_STRUCTURE",     "subcategory": "ROLE_MAPPING" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4",    "category": "BASIC_REQUIREMENTS",    "subcategory": "CONTENT" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4.5.5.1", "category": "BASIC_REQUIREMENTS",    "subcategory": "FONTS" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.9.2",  "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_ELEMENTS", "element": "ANNOTATIONS" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.9.3.3","category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_ELEMENTS", "element": "TABLES" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.9.3",  "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_ELEMENTS" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.9.4.2","category": "LOGICAL_STRUCTURE",     "subcategory": "ALTERNATIVE_DESCRIPTIONS", "element": "FIGURES" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.9.4",  "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_ELEMENTS", "element": "FIGURES" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.10",   "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_ELEMENTS", "element": "ANNOTATIONS" },
+      { "spec": "ISO 32000-2", "clausePrefix": "14.7",   "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_TREE" },
+      { "spec": "ISO 32000-2", "clausePrefix": "9.",     "category": "BASIC_REQUIREMENTS",    "subcategory": "FONTS" },
+      { "spec": "ISO 32000-2", "clausePrefix": "10.",    "category": "BASIC_REQUIREMENTS",    "subcategory": "PDF_SYNTAX" },
+      { "spec": "ISO 32000-2", "clausePrefix": "11.",    "category": "BASIC_REQUIREMENTS",    "subcategory": "PDF_SYNTAX" },
+      { "spec": "ISO 32000-2", "clausePrefix": "12.",    "category": "BASIC_REQUIREMENTS",    "subcategory": "PDF_SYNTAX" },
+      { "spec": "ISO 32000-2", "clausePrefix": "8.6",    "category": "METADATA_AND_SETTINGS", "subcategory": "OUTPUT_INTENT" },
+      { "spec": "ISO 32005",   "clausePrefix": "",       "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_ELEMENTS", "element": "AUTO_FROM_STANDARD_TYPES" }
+    ],
+
+    "tagHints": {
+      "font":      { "category": "BASIC_REQUIREMENTS",    "subcategory": "FONTS" },
+      "artifact":  { "category": "BASIC_REQUIREMENTS",    "subcategory": "CONTENT" },
+      "unicode":   { "category": "BASIC_REQUIREMENTS",    "subcategory": "CONTENT" },
+      "structure": { "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_ELEMENTS" },
+      "annotation":{ "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_ELEMENTS", "element": "ANNOTATIONS" },
+      "alt-text":  { "category": "LOGICAL_STRUCTURE",     "subcategory": "ALTERNATIVE_DESCRIPTIONS" },
+      "metadata":  { "category": "METADATA_AND_SETTINGS", "subcategory": "DOC_INFO" }
+    },
+
+    "keywordFallbacks": [
+      { "containsAny": ["/lang", "language"], "category": "METADATA_AND_SETTINGS", "subcategory": "LANGUAGE" },
+      { "containsAny": ["tounicode", "unicode"], "category": "BASIC_REQUIREMENTS", "subcategory": "CONTENT" },
+      { "containsAny": ["structtreeroot", "rolemap", "role map"], "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE" }
+    ],
+
+    "globalFallback": { "category": "BASIC_REQUIREMENTS", "subcategory": "PDF_SYNTAX" }
+  },
+
+  "elementTypes": {
+    "allowed": [ "HEADINGS", "NOTES", "ANNOTATIONS", "FIGURES", "TABLES", "NONE" ],
+    "standardTypeToElement": {
+      "H1": "HEADINGS", "H2": "HEADINGS", "H3": "HEADINGS", "H4": "HEADINGS", "H5": "HEADINGS", "H6": "HEADINGS",
+      "TABLE": "TABLES", "TR": "TABLES", "TH": "TABLES", "TD": "TABLES", "THEAD": "TABLES", "TBODY": "TABLES", "TFOOT": "TABLES",
+      "NOTE": "NOTES", "FENOTE": "NOTES",
+      "LINK": "ANNOTATIONS", "REFERENCE": "ANNOTATIONS",
+      "FIGURE": "FIGURES", "CAPTION": "FIGURES",
+      "L": "NONE", "LI": "NONE", "LBL": "NONE", "LBODY": "NONE",
+      "TOC": "NONE", "TOCI": "NONE", "INDEX": "NONE", "BIBENTRY": "NONE", "BIBLIOGRAPHY": "NONE",
+      "RUBY": "NONE", "RB": "NONE", "RT": "NONE", "RP": "NONE", "WARICHU": "NONE",
+      "P": "NONE", "SPAN": "NONE", "QUOTE": "NONE", "CODE": "NONE",
+      "SECT": "NONE", "DIV": "NONE", "PART": "NONE", "ART": "NONE", "ASIDE": "NONE", "DOCUMENTFRAGMENT": "NONE"
+    }
+  },
+
+  "iso32005ElementExtraction": {
+    "fromObjectPrefix": "SE",
+    "parseTagsFrom": ["description", "test"],
+    "tagPattern": "<([A-Za-z][A-Za-z0-9]*)>",
+    "alsoFromClause": true,
+    "stripClausePrefixPattern": "Table\\s*\\d+\\.?\\s*",
+    "splitClauseOn": "[\\s\\-/.,]+"
+  },
+  "orders": {
+    "categories": [
+      "BASIC_REQUIREMENTS",
+      "LOGICAL_STRUCTURE",
+      "METADATA_AND_SETTINGS"
+    ],
+    "subcategories": {
+      "LOGICAL_STRUCTURE": [
+        "STRUCTURE_TREE",
+        "ROLE_MAPPING",
+        "STRUCTURE_ELEMENTS",
+        "ALTERNATIVE_DESCRIPTIONS"
+      ],
+      "BASIC_REQUIREMENTS": [
+        "PDF_SYNTAX",
+        "FONTS",
+        "CONTENT",
+        "EMBEDDED_FILES",
+        "NATURAL_LANGUAGE"
+      ],
+      "METADATA_AND_SETTINGS": [
+        "PDFUA_IDENTIFICATION",
+        "LANGUAGE",
+        "OUTPUT_INTENT",
+        "DOC_INFO",
+        "XMP_DC",
+        "SECURITY_AND_SIGNATURES",
+        "OUTLINES"
+      ]
+    },
+    "elements": [
+      "HEADINGS",
+      "TABLES",
+      "FIGURES",
+      "ANNOTATIONS",
+      "NOTES",
+      "NONE"
+    ]
+  }
+
+}
