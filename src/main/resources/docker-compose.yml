@@ -1,0 +1,9 @@
+services:
+  verapdf:
+    image: verapdf/rest:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./verapdf-config:/opt/verapdf-rest/config:ro
+    environment:
+      - JAVA_OPTS=-Xms256m -Xmx1024m

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<validatorConfig
+  flavour="NO_FLAVOUR"
+  defaultFlavour="PDF_UA2"
+  recordPasses="true"
+  maxFails="-1"
+  showErrorMessages="true"
+  isLogsEnabled="true"
+  loggingLevel="WARNING"
+  maxNumberOfDisplayedFailedChecks="100"
+  showProgress="false"/>
