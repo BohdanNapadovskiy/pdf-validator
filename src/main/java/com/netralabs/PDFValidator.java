@@ -1,7 +1,6 @@
 package com.netralabs;
 
 import com.netralabs.domain.Detail;
-import com.netralabs.domain.ElementType;
 import com.netralabs.domain.GroupKey;
 import com.netralabs.domain.GroupSummary;
 import com.netralabs.domain.ReportSummary;
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
-public class App {
+public class PDFValidator {
 
   static {
     VeraGreenfieldFoundryProvider.initialise();
@@ -54,7 +53,7 @@ public class App {
   static List<GroupSummary> groupByTaxonomy(List<Detail> details) {
     Map<GroupKey, List<Detail>> grouped = details.stream()
         .collect(groupingBy(UaClassifier::classify, LinkedHashMap::new, toList()));
-    return grouped.entrySet().stream().map(App::createGroupSummary).toList();
+    return grouped.entrySet().stream().map(PDFValidator::createGroupSummary).toList();
   }
 
   private static void saveGroupsAsJson(Path inputPath, ReportSummary report) throws Exception {
