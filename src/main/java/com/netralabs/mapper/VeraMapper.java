@@ -1,4 +1,4 @@
-package com.netralabs;
+package com.netralabs.mapper;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class VeraMapper {
 
-  static List<Detail> toDetails(String json) throws Exception {
+  public static List<Detail> toDetails(String json) throws Exception {
     ObjectMapper om = new ObjectMapper();
     JsonNode root = om.readTree(json);
 

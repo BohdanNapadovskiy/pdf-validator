@@ -5,6 +5,8 @@ import com.netralabs.domain.GroupKey;
 import com.netralabs.domain.GroupSummary;
 import com.netralabs.domain.ReportSummary;
 import com.netralabs.domain.UaClassifier;
+import com.netralabs.mapper.VeraMapper;
+import com.netralabs.veraclient.VeraPdfClient;
 import org.verapdf.gf.foundry.VeraGreenfieldFoundryProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

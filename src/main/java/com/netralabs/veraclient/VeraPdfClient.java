@@ -1,4 +1,4 @@
-package com.netralabs;
+package com.netralabs.veraclient;
 
 import java.net.URI;
 import java.net.http.HttpClient;
