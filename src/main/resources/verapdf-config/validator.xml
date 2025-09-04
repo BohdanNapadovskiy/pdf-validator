@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <validatorConfig
   flavour="NO_FLAVOUR"
-  defaultFlavour="PDF_UA2"
+  defaultFlavour="PDF_UA1"
   recordPasses="true"
   maxFails="-1"
   showErrorMessages="true"

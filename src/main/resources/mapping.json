@@ -9,27 +9,115 @@
 
   "mappings": {
     "clauseRules": [
-      { "spec": "ISO 14289-2", "clausePrefix": "5",      "category": "METADATA_AND_SETTINGS", "subcategory": "PDFUA_IDENTIFICATION" },
-      { "spec": "ISO 14289-2", "clausePrefix": "6.2",    "category": "BASIC_REQUIREMENTS",    "subcategory": "NATURAL_LANGUAGE" },
-      { "spec": "ISO 14289-2", "clausePrefix": "8.1",    "category": "METADATA_AND_SETTINGS", "subcategory": "LANGUAGE" },
-      { "spec": "ISO 14289-2", "clausePrefix": "8.2.1",  "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_TREE" },
-      { "spec": "ISO 14289-2", "clausePrefix": "8.2",    "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_TREE" },
-      { "spec": "ISO 14289-2", "clausePrefix": "8.3",    "category": "LOGICAL_STRUCTURE",     "subcategory": "ROLE_MAPPING" },
-      { "spec": "ISO 14289-2", "clausePrefix": "8.4",    "category": "BASIC_REQUIREMENTS",    "subcategory": "CONTENT" },
-      { "spec": "ISO 14289-2", "clausePrefix": "8.4.5.5.1", "category": "BASIC_REQUIREMENTS",    "subcategory": "FONTS" },
-      { "spec": "ISO 14289-2", "clausePrefix": "8.9.2",  "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_ELEMENTS", "element": "ANNOTATIONS" },
-      { "spec": "ISO 14289-2", "clausePrefix": "8.9.3.3","category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_ELEMENTS", "element": "TABLES" },
-      { "spec": "ISO 14289-2", "clausePrefix": "8.9.3",  "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_ELEMENTS" },
-      { "spec": "ISO 14289-2", "clausePrefix": "8.9.4.2","category": "LOGICAL_STRUCTURE",     "subcategory": "ALTERNATIVE_DESCRIPTIONS", "element": "FIGURES" },
-      { "spec": "ISO 14289-2", "clausePrefix": "8.9.4",  "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_ELEMENTS", "element": "FIGURES" },
-      { "spec": "ISO 14289-2", "clausePrefix": "8.10",   "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_ELEMENTS", "element": "ANNOTATIONS" },
-      { "spec": "ISO 32000-2", "clausePrefix": "14.7",   "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_TREE" },
-      { "spec": "ISO 32000-2", "clausePrefix": "9.",     "category": "BASIC_REQUIREMENTS",    "subcategory": "FONTS" },
-      { "spec": "ISO 32000-2", "clausePrefix": "10.",    "category": "BASIC_REQUIREMENTS",    "subcategory": "PDF_SYNTAX" },
-      { "spec": "ISO 32000-2", "clausePrefix": "11.",    "category": "BASIC_REQUIREMENTS",    "subcategory": "PDF_SYNTAX" },
-      { "spec": "ISO 32000-2", "clausePrefix": "12.",    "category": "BASIC_REQUIREMENTS",    "subcategory": "PDF_SYNTAX" },
-      { "spec": "ISO 32000-2", "clausePrefix": "8.6",    "category": "METADATA_AND_SETTINGS", "subcategory": "OUTPUT_INTENT" },
-      { "spec": "ISO 32005",   "clausePrefix": "",       "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_ELEMENTS", "element": "AUTO_FROM_STANDARD_TYPES" }
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4.5.5.1", "object": "PDFont",
+        "category": "BASIC_REQUIREMENTS", "subcategory": "FONTS", "element": "FONT_EMBEDDING" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4.5.5.1", "object": "Glyph",
+        "category": "BASIC_REQUIREMENTS", "subcategory": "FONTS", "element": "GLYPH_COVERAGE" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4.5.7", "object": "PDTrueTypeFont",
+        "category": "BASIC_REQUIREMENTS", "subcategory": "FONTS", "element": "TTF_ENCODING_RULES" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4.5.7", "object": "TrueTypeFontProgram",
+        "category": "BASIC_REQUIREMENTS", "subcategory": "FONTS", "element": "TTF_CMAP_REQUIRED" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4.5.6", "object": "Glyph",
+        "category": "BASIC_REQUIREMENTS", "subcategory": "FONTS", "element": "GLYPH_WIDTH_CONSISTENCY" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4.5.8", "object": "Glyph",
+        "category": "BASIC_REQUIREMENTS", "subcategory": "FONTS", "element": "TOUNICODE_RULES" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4.5.4", "object": "PDCMap",
+        "category": "BASIC_REQUIREMENTS", "subcategory": "FONTS", "element": "CMAP_EMBEDDING" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4.5.4", "object": "PDReferencedCMap",
+        "category": "BASIC_REQUIREMENTS", "subcategory": "FONTS", "element": "CMAP_ALLOWED_REFERENCES" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4.5.4", "object": "CMapFile",
+        "category": "BASIC_REQUIREMENTS", "subcategory": "FONTS", "element": "CMAP_WMODE_CONSISTENCY" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4.5.3.2", "object": "PDCIDFont",
+        "category": "BASIC_REQUIREMENTS", "subcategory": "FONTS", "element": "CIDTOGIDMAP_REQUIRED" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4.5.3.1", "object": "PDType0Font",
+        "category": "BASIC_REQUIREMENTS", "subcategory": "FONTS", "element": "TYPE0_CIDSYSINFO_RELATION" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4.5.9", "object": "Glyph",
+        "category": "BASIC_REQUIREMENTS", "subcategory": "FONTS", "element": "NOTDEF_FORBIDDEN" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4.4", "object": "PDDocument",
+        "category": "BASIC_REQUIREMENTS", "subcategory": "NATURAL_LANGUAGE", "element": "DOC_LANG_PRESENT" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4.4", "object": "CosLang",
+        "category": "BASIC_REQUIREMENTS", "subcategory": "NATURAL_LANGUAGE", "element": "LANG_TAG_VALID" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4.3", "object": "Glyph",
+        "category": "BASIC_REQUIREMENTS", "subcategory": "CONTENT", "element": "PUA_REQUIRES_ALT_OR_ACTUALTEXT" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4.3", "object": "CosAlt",
+        "category": "BASIC_REQUIREMENTS", "subcategory": "CONTENT", "element": "ALT_NO_PUA" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.4.3", "object": "CosActualText",
+        "category": "BASIC_REQUIREMENTS", "subcategory": "CONTENT", "element": "ACTUALTEXT_NO_PUA" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.1", "object": "PDDocument",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "STRUCT_TREE_REQUIRED" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.20", "object": "PDLinkAnnot",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_ELEMENTS", "element": "ANNOTATIONS" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.26", "object": "SETable",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "TABLES" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.26", "object": "SETD",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "TABLES" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.1", "object": "PDDocument",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "STRUCT_TREE_REQUIRED" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.2", "object": "SESimpleContentItem",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "ARTIFACTS_MARKING" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.4", "object": "PDStructElem",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "ROLEMAP_NO_SAME_NAMESPACE" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.4", "object": "SENonStandard",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "STRUCT_NS_ALLOWED" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.2", "object": "PDStructTreeRoot",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "ROOT_HAS_SINGLE_DOCUMENT" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.2", "object": "PDStructTreeRoot",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "ROOT_CHILD_PDF20_NAMESPACE" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.12", "object": "SEH",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "H_NOT_ALLOWED" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.14", "object": "SEFENote",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "FENOTE_NO_GHOST_REFS" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.14", "object": "SEFENote",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "FENOTE_NO_ORPHAN_REFS" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.14", "object": "SEFENote",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "FENOTE_NOTETYPE_ALLOWED" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.23", "object": "SERuby",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "RUBY_SEQUENCE_VALID" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.24", "object": "SEWarichu",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "WARICHU_SEQUENCE_VALID" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.25", "object": "SEL",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "LIST_NUMBERING_IF_LABELS" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.25", "object": "SELI",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "LI_HAS_LBODY_IF_CONTENT" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.26", "object": "SETableCell",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "TABLE_NO_CELL_INTERSECTIONS" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.26", "object": "SETable",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "TABLE_ROWS_REGULAR" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.26", "object": "SETable",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "TABLE_COLUMNS_REGULAR" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.26", "object": "SETD",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "TABLE_HEADERS_ASSOCIATED" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.27", "object": "PDStructElem",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "CAPTION_FIRST_OR_LAST" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.28.2", "object": "SEFigure",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_TREE", "element": "FIGURE_ALT_OR_ACTUALTEXT" },
+
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.20", "object": "PDLinkAnnot",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_ELEMENTS", "element": "ANNOT_LINK_TAGGED" },
+      { "spec": "ISO 14289-2", "clausePrefix": "8.2.5.20", "object": "PDLinkAnnot",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_ELEMENTS", "element": "ANNOT_LINK_SEPARATE_BY_TARGET" },
+      { "spec": "ISO 32005", "clausePrefix": "",
+        "category": "LOGICAL_STRUCTURE", "subcategory": "STRUCTURE_ELEMENTS", "element": "AUTO_FROM_STANDARD_TYPES" }
+
     ],
 
     "tagHints": {
@@ -39,7 +127,10 @@
       "structure": { "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_ELEMENTS" },
       "annotation":{ "category": "LOGICAL_STRUCTURE",     "subcategory": "STRUCTURE_ELEMENTS", "element": "ANNOTATIONS" },
       "alt-text":  { "category": "LOGICAL_STRUCTURE",     "subcategory": "ALTERNATIVE_DESCRIPTIONS" },
-      "metadata":  { "category": "METADATA_AND_SETTINGS", "subcategory": "DOC_INFO" }
+      "metadata":  { "category": "METADATA_AND_SETTINGS", "subcategory": "DOC_INFO" },
+      "reading-order": { "category": "LOGICAL_STRUCTURE",  "subcategory": "READING_ORDER" },
+      "color":         { "category": "BASIC_REQUIREMENTS", "subcategory": "COLOR" }
+
     },
 
     "keywordFallbacks": [

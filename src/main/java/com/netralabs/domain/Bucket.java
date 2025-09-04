@@ -7,7 +7,7 @@ import java.util.List;
 public record Bucket(
     Category category,
     Subcategory subcategory,
-    ElementType element,
+    String element,
     JsonNode items
 ) {
 

@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReportSummary {
+public class ReportSummary implements Report {
 
   private String title;
   private String fileName;
